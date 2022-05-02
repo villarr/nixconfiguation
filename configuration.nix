@@ -22,13 +22,13 @@
   nixpkgs.config.allowUnfree = true;
 
   networking.hostName = "haidilaoyue"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  #networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   
   # Set your time zone.
 
-  #services.ntp.enable = true;
+  # services.ntp.enable = true;
   # services.chrony.enable = true;
-  #services.timesyncd.enable = true;
+  # services.timesyncd.enable = true;
   services.localtime.enable = true;
   time.timeZone = "America/Los_Angeles";
 
@@ -107,30 +107,7 @@
      maven
     ];
 
-environment.variables = {
-    EDITOR = "nano";
-    PKG_CONFIG_PATH = with pkgs; [
-      "${openssl.dev}/lib/pkgconfig"
-    ];
-    LIBRARY_PATH = with pkgs; [
-      "${xorg.libX11}/lib"
-      "${xorg.libXtst}/lib"
-    ];
-    TERMINAL = "konsole";
-  };
-
-
-fonts = {
-      fonts = with pkgs; [
-      nerdfonts
-      powerline-fonts
-      unifont
-      source-code-pro
-      open-fonts	
-    ];
-  };
-
-  programs.bash.enableCompletion = true;
+   programs.bash.enableCompletion = true;
  
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
