@@ -16,16 +16,21 @@
   boot.supportedFilesystems = [ "ntfs" ]; 
   nix.autoOptimiseStore = true;
   nix.gc.automatic = true;
-
+  
   services.mysql.package = pkgs.mysql80;
   services.mysql.enable = true;
   nixpkgs.config.allowUnfree = true;
 
   networking.hostName = "haidilaoyue"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
+  
   # Set your time zone.
-  time.timeZone = "UTC";
+
+  #services.ntp.enable = true;
+  # services.chrony.enable = true;
+  #services.timesyncd.enable = true;
+  services.localtime.enable = true;
+  time.timeZone = "America/Los_Angeles";
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
@@ -36,6 +41,9 @@
 
   system.autoUpgrade.enable = true;
   system.autoUpgrade.allowReboot = true;
+  system.autoUpgrade.channel = https://nixos.org/channels/nixos-21.11;
+  system.autoUpgrade.dates = "18:45";
+
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
@@ -55,6 +63,9 @@
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
   
+  
+  # gnupg doesn't come with pinentry, so require the agent
+   programs.gnupg.agent.enable = true;
 
   # Configure keymap in X11
   # services.xserver.layout = "us";
@@ -86,6 +97,14 @@
      python3 
      geany
      firefox
+     curl
+     tmux
+     apg
+     gnupg
+     gnupg1compat
+     pinentry
+     docker
+     maven
     ];
 
 environment.variables = {
@@ -107,6 +126,7 @@ fonts = {
       powerline-fonts
       unifont
       source-code-pro
+      open-fonts	
     ];
   };
 
@@ -115,10 +135,6 @@ fonts = {
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
    programs.mtr.enable = true;
-   programs.gnupg.agent = {
-     enable = true;
-     enableSSHSupport = true;
-   };
 
   # List services that you want to enable:
 
